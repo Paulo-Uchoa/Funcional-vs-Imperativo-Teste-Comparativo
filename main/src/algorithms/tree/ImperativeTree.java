@@ -2,17 +2,15 @@ package algorithms.tree;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class ImperativeTree {
 
-    public static void doubleValues(Node root) {
+    public static void tripleValues(Node root) {
         if (root == null) return;
 
-        root.val *= 2;
-        doubleValues(root.left);
-        doubleValues(root.right);
+        root.val *= 3;
+        tripleValues(root.left);
+        tripleValues(root.right);
     }
 
     public static List<Integer> collectEven(Node root) {

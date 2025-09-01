@@ -6,13 +6,13 @@ import java.util.stream.Stream;
 
 public class FunctionalTree {
 
-    public static Node doubleValues(Node root){
+    public static Node tripleValues(Node root){
         if(root == null) return null;
 
         return new Node (
-                root.val * 2,
-                doubleValues(root.left),
-                doubleValues(root.right)
+                root.val * 3,
+                tripleValues(root.left),
+                tripleValues(root.right)
         );
     }
 
