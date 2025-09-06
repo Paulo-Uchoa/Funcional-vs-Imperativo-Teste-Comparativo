@@ -1,0 +1,7 @@
+.git
+.gitignore
+*.class
+target/
+bin/
+.DS_Store
+README.md

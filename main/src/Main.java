@@ -55,15 +55,27 @@ public class Main {
             }
         }
 
-        private static void configureParams() {
+    private static void configureParams() {
+        String envPrint = System.getenv("PRINT_ARRAY");
+        String envExec = System.getenv("EXECUTIONS");
+
+        if (envPrint != null) {
+            printArray = envPrint.equalsIgnoreCase("true");
+        } else {
             System.out.print("\nDeseja imprimir os arrays/listas? (S/N): ");
             printArray = scanner.next().trim().equalsIgnoreCase("S");
+        }
 
+        if (envExec != null) {
+            auxExecutions = Math.max(Integer.parseInt(envExec), 1);
+        } else {
             System.out.print("Quantas execuções deseja por teste? (ex.: 1, 5, 10): ");
             auxExecutions = Math.max(scanner.nextInt(), 1);
         }
+    }
 
-        private static void executeBubbleSort() {
+
+    private static void executeBubbleSort() {
             System.out.print("Digite o tamanho do array: ");
             int size = scanner.nextInt();
             int[] baseArray = Util.randomIntArray(size, 1, 10000);
