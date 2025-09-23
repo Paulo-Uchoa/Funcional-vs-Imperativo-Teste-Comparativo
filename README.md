@@ -1,64 +1,69 @@
 # Benchmark de Algoritmos: Paradigmas Funcional vs Imperativo
 
-Este projeto é uma aplicação Java que realiza comparações entre algoritmos implementados nos paradigmas **imperativo** e **funcional**. O objetivo é avaliar desempenho (tempo de execução e uso de memória) de diferentes operações, incluindo ordenação, operações simples e manipulação de árvores.
+Este projeto é uma aplicação Java que compara algoritmos implementados nos paradigmas **imperativo** e **funcional**.  
+O objetivo é **avaliar desempenho (tempo de execução, uso de memória e consistência)** de diferentes operações, incluindo ordenação, operações simples e manipulação de árvores.
 
 ---
 
-## Estrutura do Projeto
+## 📂 Estrutura do Projeto
 
 ```
-main/src/
-├── Main.java                 # Classe principal com menu interativo
+src/main/java/
+├── Main.java                  # Ponto de entrada do programa
+├── ApplicationRunner.java     # Responsável pela execução do menu e controle do fluxo
 ├── algorithms/
-│   ├── bubblesort/           # Implementações Bubble Sort (funcional e imperativa)
-│   ├── mergesort/            # Implementações Merge Sort (funcional e imperativa)
-│   ├── orderingsystem/       # Sistema de pedidos (imperativo e funcional)
-│   ├── simpleoperations/     # Soma sequencial e paralela
-│   └── tree/                 # Árvores (imperativo e funcional)
+│   ├── bubblesort/            # Bubble Sort (funcional e imperativo)
+│   ├── mergesort/             # Merge Sort (funcional e imperativo)
+│   ├── orderingsystem/        # Sistema de pedidos (funcional e imperativo)
+│   ├── simpleoperations/      # Soma sequencial e paralela
+│   └── tree/                  # Árvores (funcional e imperativo)
+├── benchmark/                 
+│   ├── BenchmarkRunner.java   # Orquestra execução dos testes
+│   └── BenchmarkResult.java   # Estrutura de resultado (tempo, memória, etc.)
 └── util/
-    └── Util.java             # Funções auxiliares
-Dockerfile                     # Dockerfile para containerizar a aplicação
-README.md                       # Este arquivo
+    └── Util.java              # Funções auxiliares (geração de arrays, árvores, pedidos)
 ```
+
+- **`results/benchmark_results.json`** → contém os últimos resultados exportados em JSON.
 
 ---
 
-## Funcionalidades do Programa
+## 🚀 Funcionalidades
 
 O programa apresenta um **menu interativo** com as seguintes opções:
 
-1. **Testar Bubble Sort**  
-   - Ordenação de arrays aleatórios usando Bubble Sort nos paradigmas funcional e imperativo.
+1. **Bubble Sort**  
+   - Ordenação de arrays aleatórios com Bubble Sort (funcional e imperativo).
 
-2. **Testar Merge Sort**  
-   - Ordenação de arrays aleatórios usando Merge Sort nos paradigmas funcional e imperativo.
+2. **Merge Sort**  
+   - Ordenação de arrays aleatórios com Merge Sort (funcional e imperativo).
 
-3. **Testar Sistema de Pedidos**  
+3. **Sistema de Pedidos**  
    - Filtragem e ordenação de listas de pedidos com base em categoria e valor mínimo.
 
-4. **Testar Árvores**  
-   - Manipulação de árvores, triplicando valores e coletando números pares, comparando abordagens funcional e imperativa.
+4. **Árvores**  
+   - Manipulação de árvores, triplicando valores e coletando pares.
 
-5. **Testar Soma Sequencial e Paralela**  
-   - Soma de elementos de 1 a n, mostrando diferença de desempenho entre processamento sequencial e paralelo.
+5. **Soma Sequencial e Paralela**  
+   - Soma de elementos de 1 a n, comparando sequencial vs paralelo.
 
-6. **Alterar preferências**  
-   - Configurações de **impressão de arrays** (`printArray`) e **número de execuções por teste** (`auxExecutions`).
+6. **Alterar Preferências**  
+   - Definir:
+     - Impressão de arrays/listas (`PRINT_ARRAY`).
+     - Número de execuções por teste (`EXECUTIONS`).
+
+7. **Exportar Resultados**  
+   - Salva os últimos resultados em **JSON** na pasta `results/`.
 
 ---
 
-## Executando via Docker
+## 🐳 Executando via Docker
 
 ### 1️⃣ Construir a imagem
-
-Dentro da pasta raiz do projeto ex: (`C:\benchmark\`);
-Execute o comando para construir a imagem.
 
 ```bash
 docker build -t algorithms-app .
 ```
-
-- Constrói a imagem Docker a partir do Dockerfile que está na pasta atual `.` e dê a ela o nome (`-t`) algorithms-app.
 
 ### 2️⃣ Rodar de forma interativa
 
@@ -66,54 +71,53 @@ docker build -t algorithms-app .
 docker run -it algorithms-app
 ```
 
-- `-it` mantém o terminal interativo para o menu funcionar.
-- O programa pedirá entrada de dados para executar os testes.
-
 ### 3️⃣ Configurar variáveis de ambiente (opcional)
 
-Você pode definir preferências antes de rodar o container:
-
 ```bash
-docker run -it -e PRINT_ARRAY=true -e EXECUTIONS=5 algorithms-app
+docker run -it -e PRINT_ARRAY=true -e EXECUTIONS=10 algorithms-app
 ```
-
-- `PRINT_ARRAY=true` → imprime arrays e listas geradas durante os testes.  
-- `EXECUTIONS=5` → número de execuções para cada teste, usado para cálculo de médias.
 
 ---
 
-## Resultados do Benchmark
+## 📊 Resultados do Benchmark
 
-Para cada teste, a aplicação calcula:
+Para cada teste, são calculados:
 
-- **Tempo médio** de execução (ms)  
-- **Memória média** utilizada (KB)
+- **Tempo médio** (ms)  
+- **Memória média** (KB)  
+- **Melhor e pior execução**  
+- **Desvio padrão**
 
-Exemplo de saída:
+Exemplo:
 
 ```
-===== RESULTADOS: Bubble Sort =====
-Funcional   -> Tempo médio: 12.34 ms | Memória média: 1.23 KB
-Imperativo  -> Tempo médio: 15.67 ms | Memória média: 1.45 KB
+>>> Iniciando benchmark: Merge Sort
+Funcional   -> Média: 12,34 ms, Memória: 1,23 KB, Melhor: 10 ms, Pior: 18 ms, Desvio Padrão: 2,1
+Imperativo  -> Média: 15,67 ms, Memória: 1,45 KB, Melhor: 14 ms, Pior: 22 ms, Desvio Padrão: 3,0
 --------------------------------------------------
 ```
 
-> Observação: você pode ajustar o número de execuções (`EXECUTIONS`) para obter médias mais confiáveis.
+---
+
+## ⚠️ Tratamentos e Limites
+
+- Entradas inválidas ou muito grandes são tratadas com mensagens amigáveis.  
+- Arrays acima de **2 bilhões de elementos** não são permitidos.  
+- Excessos de memória são capturados com `OutOfMemoryError`.  
+- O Bubble Sort é intencionalmente ineficiente para grandes arrays (usado apenas para fins didáticos).  
 
 ---
 
-## Observações
+## 🔧 Requisitos
 
-- O projeto está estruturado para **facilitar a comparação de paradigmas de programação**.  
-- Todos os algoritmos possuem versões funcionais e imperativas para fins de análise de desempenho.  
-- O código é compatível com **Java 17** e pode ser executado tanto localmente quanto via Docker.  
-- Para rodar localmente sem Docker, basta compilar todos os arquivos `.java` e executar `java Main`.
+- **Java 17**  
+- Docker (opcional)  
+- [Gson](https://github.com/google/gson) (caso rode fora do Docker, adicione `gson-x.x.x.jar` em `libs/`)
 
 ---
 
-## Contato
+## 📫 Contato
 
 Autor: **Paulo Uchoa**  
 E-mail: **paulojosevieira2011@gmail.com**  
-Projeto para **Trabalho de Conclusão de Curso - Imperativo versus Funcional: Dois caminhos para resolver o mesmo problema**
-
+Projeto para **Trabalho de Conclusão de Curso - Imperativo vs Funcional: Dois caminhos para resolver o mesmo problema**
