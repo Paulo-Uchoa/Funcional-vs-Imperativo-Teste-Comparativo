@@ -4,10 +4,13 @@ WORKDIR /app
 
 COPY main/src/ /app/
 
-RUN find . -name "*.java" > sources.txt && javac @sources.txt
+COPY libs/ /app/libs/
+
+RUN find . -name "*.java" > sources.txt \
+    && javac -cp "libs/*" @sources.txt
 
 ENV PRINT_ARRAY=false
 ENV EXECUTIONS=1
-ENV CLASSPATH=/app
+ENV CLASSPATH=/app:libs/*
 
-CMD ["sh", "-c", "java -cp /app Main"]
+CMD ["sh", "-c", "java Main"]
