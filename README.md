@@ -1,77 +1,65 @@
-# Benchmark de Algoritmos: Paradigmas Funcional vs Imperativo
+# Algorithm Benchmark: Functional vs Imperative Paradigms
 
-Este projeto é uma aplicação Java que compara algoritmos implementados nos paradigmas **imperativo** e **funcional**.  
-O objetivo é **avaliar desempenho (tempo de execução, uso de memória e consistência)** de diferentes operações, incluindo ordenação, operações simples e manipulação de árvores.
+A Java application that compares algorithms implemented in the **imperative** and **functional**
+paradigms. The goal is to **evaluate performance (execution time, memory usage and consistency)**
+across different operations, including sorting, simple operations and tree manipulation.
 
 ---
 
-## 📂 Estrutura do Projeto
+## 📂 Project Structure
 
 ```
 src/main/java/
-├── Main.java                  # Ponto de entrada do programa
-├── ApplicationRunner.java     # Responsável pela execução do menu e controle do fluxo
+├── Main.java                  # Program entry point
+├── ApplicationRunner.java     # Runs the menu and controls the flow
 ├── algorithms/
-│   ├── bubblesort/            # Bubble Sort (funcional e imperativo)
-│   ├── mergesort/             # Merge Sort (funcional e imperativo)
-│   ├── orderingsystem/        # Sistema de pedidos (funcional e imperativo)
-│   ├── simpleoperations/      # Soma sequencial e paralela
-│   └── tree/                  # Árvores (funcional e imperativo)
-├── benchmark/                 
-│   ├── BenchmarkRunner.java   # Orquestra execução dos testes
-│   └── BenchmarkResult.java   # Estrutura de resultado (tempo, memória, etc.)
+│   ├── bubblesort/            # Bubble Sort (functional and imperative)
+│   ├── mergesort/             # Merge Sort (functional and imperative)
+│   ├── orderingsystem/        # Ordering system (functional and imperative)
+│   ├── simpleoperations/      # Sequential and parallel sum
+│   └── tree/                  # Trees (functional and imperative)
+├── benchmark/
+│   ├── BenchmarkRunner.java   # Orchestrates test execution
+│   └── BenchmarkResult.java   # Result structure (time, memory, etc.)
 └── util/
-    └── Util.java              # Funções auxiliares (geração de arrays, árvores, pedidos)
+    └── Util.java              # Helper functions (array/tree/order generation)
 ```
 
-- **`results/benchmark_results.json`** → contém os últimos resultados exportados em JSON.
+- **`results/benchmark_results.json`** → contains the latest exported results in JSON.
 
 ---
 
-## 🚀 Funcionalidades
+## 🚀 Features
 
-O programa apresenta um **menu interativo** com as seguintes opções:
+The program offers an **interactive menu** with the following options:
 
-1. **Bubble Sort**  
-   - Ordenação de arrays aleatórios com Bubble Sort (funcional e imperativo).
-
-2. **Merge Sort**  
-   - Ordenação de arrays aleatórios com Merge Sort (funcional e imperativo).
-
-3. **Sistema de Pedidos**  
-   - Filtragem e ordenação de listas de pedidos com base em categoria e valor mínimo.
-
-4. **Árvores**  
-   - Manipulação de árvores, triplicando valores e coletando pares.
-
-5. **Soma Sequencial e Paralela**  
-   - Soma de elementos de 1 a n, comparando sequencial vs paralelo.
-
-6. **Alterar Preferências**  
-   - Definir:
-     - Impressão de arrays/listas (`PRINT_ARRAY`).
-     - Número de execuções por teste (`EXECUTIONS`).
-
-7. **Exportar Resultados**  
-   - Salva os últimos resultados em **JSON** na pasta `results/`.
+1. **Bubble Sort** — sort random arrays with Bubble Sort (functional and imperative).
+2. **Merge Sort** — sort random arrays with Merge Sort (functional and imperative).
+3. **Ordering System** — filter and sort order lists by category and minimum value.
+4. **Trees** — manipulate trees, tripling values and collecting pairs.
+5. **Sequential and Parallel Sum** — sum elements from 1 to n, comparing sequential vs parallel.
+6. **Change Preferences** — set:
+   - Array/list printing (`PRINT_ARRAY`).
+   - Number of executions per test (`EXECUTIONS`).
+7. **Export Results** — save the latest results as **JSON** in the `results/` folder.
 
 ---
 
-## 🐳 Executando via Docker
+## 🐳 Running with Docker
 
-### 1️⃣ Construir a imagem
+### 1️⃣ Build the image
 
 ```bash
 docker build -t algorithms-app .
 ```
 
-### 2️⃣ Rodar de forma interativa
+### 2️⃣ Run interactively
 
 ```bash
 docker run -it algorithms-app
 ```
 
-### 3️⃣ Configurar variáveis de ambiente (opcional)
+### 3️⃣ Configure environment variables (optional)
 
 ```bash
 docker run -it -e PRINT_ARRAY=true -e EXECUTIONS=10 algorithms-app
@@ -79,45 +67,45 @@ docker run -it -e PRINT_ARRAY=true -e EXECUTIONS=10 algorithms-app
 
 ---
 
-## 📊 Resultados do Benchmark
+## 📊 Benchmark Results
 
-Para cada teste, são calculados:
+For each test, the following are computed:
 
-- **Tempo médio** (ms)  
-- **Memória média** (KB)  
-- **Melhor e pior execução**  
-- **Desvio padrão**
+- **Average time** (ms)
+- **Average memory** (KB)
+- **Best and worst execution**
+- **Standard deviation**
 
-Exemplo:
+Example:
 
 ```
->>> Iniciando benchmark: Merge Sort
-Funcional   -> Média: 12,34 ms, Memória: 1,23 KB, Melhor: 10 ms, Pior: 18 ms, Desvio Padrão: 2,1
-Imperativo  -> Média: 15,67 ms, Memória: 1,45 KB, Melhor: 14 ms, Pior: 22 ms, Desvio Padrão: 3,0
+>>> Starting benchmark: Merge Sort
+Functional  -> Avg: 12.34 ms, Memory: 1.23 KB, Best: 10 ms, Worst: 18 ms, Std Dev: 2.1
+Imperative  -> Avg: 15.67 ms, Memory: 1.45 KB, Best: 14 ms, Worst: 22 ms, Std Dev: 3.0
 --------------------------------------------------
 ```
 
 ---
 
-## ⚠️ Tratamentos e Limites
+## ⚠️ Handling & Limits
 
-- Entradas inválidas ou muito grandes são tratadas com mensagens amigáveis.  
-- Arrays acima de **2 bilhões de elementos** não são permitidos.  
-- Excessos de memória são capturados com `OutOfMemoryError`.  
-- O Bubble Sort é intencionalmente ineficiente para grandes arrays (usado apenas para fins didáticos).  
-
----
-
-## 🔧 Requisitos
-
-- **Java 17**  
-- Docker (opcional)  
-- [Gson](https://github.com/google/gson) (caso rode fora do Docker, adicione `gson-x.x.x.jar` em `libs/`)
+- Invalid or very large inputs are handled with friendly messages.
+- Arrays larger than **2 billion elements** are not allowed.
+- Out-of-memory situations are caught with `OutOfMemoryError`.
+- Bubble Sort is intentionally inefficient for large arrays (used for educational purposes only).
 
 ---
 
-## 📫 Contato
+## 🔧 Requirements
 
-Autor: **Paulo Uchoa**  
-E-mail: **paulojosevieira2011@gmail.com**  
-Projeto para **Trabalho de Conclusão de Curso - Imperativo vs Funcional: Dois caminhos para resolver o mesmo problema**
+- **Java 17**
+- Docker (optional)
+- [Gson](https://github.com/google/gson) (if running outside Docker, add `gson-x.x.x.jar` to `libs/`)
+
+---
+
+## 📫 Contact
+
+Author: **Paulo Uchoa**
+E-mail: **paulojosevieira2011@gmail.com**
+Project for the **Capstone Project — Imperative vs Functional: Two paths to solve the same problem**
